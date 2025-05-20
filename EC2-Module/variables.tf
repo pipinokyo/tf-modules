@@ -17,4 +17,14 @@ variable "key_name" {
 variable "security_group_ids" {
   description = "List of security group IDs"
   type        = list(string)
+}
+
+data "aws_ami" "amazon_linux" {
+  most_recent = true
+  owners      = ["amazon"]
+
+  filter {
+    name   = "name"
+    values = ["amzn2-ami-hvm-*-x86_64-gp2"]
+  }
 } 
