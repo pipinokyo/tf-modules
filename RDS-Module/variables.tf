@@ -15,7 +15,7 @@ variable "db_password" {
 }
 
 variable "instance_class" {
-  description = "RDS instance class"
+  description = "Instance class for the RDS instance"
   type        = string
   default     = "db.t3.micro"
 }
@@ -26,8 +26,14 @@ variable "db_subnet_group" {
 }
 
 variable "security_group_id" {
-  description = "Security group ID for RDS"
+  description = "Security group ID for the RDS instance"
   type        = string
+}
+
+variable "service_name" {
+  description = "Service name (e.g., ec2, rds, sg)"
+  type        = string
+  default     = "rds"
 }
 
 variable "tags" {

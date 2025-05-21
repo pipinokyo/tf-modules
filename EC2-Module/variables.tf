@@ -19,6 +19,12 @@ variable "security_group_ids" {
   type        = list(string)
 }
 
+variable "service_name" {
+  description = "Service name (e.g., ec2, rds, sg)"
+  type        = string
+  default     = "ec2"
+}
+
 variable "tags" {
   description = "A map of tags to add to all resources"
   type        = map(string)
