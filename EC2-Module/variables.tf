@@ -25,7 +25,7 @@ variable "service_name" {
   default     = "ec2"
 }
 
-variable "tags" {
+variable "tags" {                                               # A map of tags to apply to all resources
   description = "A map of tags to add to all resources"
   type        = map(string)
   default     = {}
