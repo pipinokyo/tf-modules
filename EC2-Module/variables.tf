@@ -4,19 +4,25 @@ variable "ami_id" {
 }
 
 variable "instance_type" {
-  description = "EC2 instance type"
+  description = "Type of instance to create"
   type        = string
   default     = "t2.micro"
 }
 
 variable "key_name" {
-  description = "Key pair name for SSH access"
+  description = "Key pair name for EC2"
   type        = string
 }
 
 variable "security_group_ids" {
   description = "List of security group IDs"
   type        = list(string)
+}
+
+variable "tags" {
+  description = "A map of tags to add to all resources"
+  type        = map(string)
+  default     = {}
 }
 
 data "aws_ami" "amazon_linux" {

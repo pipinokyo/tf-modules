@@ -1,7 +1,7 @@
-resource "aws_instance" "wordpress" {
-  ami           = var.ami_id
-  instance_type = var.instance_type
-  key_name      = var.key_name
+resource "aws_instance" "this" {
+  ami                    = var.ami_id
+  instance_type          = var.instance_type
+  key_name              = var.key_name
   vpc_security_group_ids = var.security_group_ids
 
   user_data = <<-EOF
@@ -19,7 +19,25 @@ resource "aws_instance" "wordpress" {
     systemctl restart httpd
   EOF
 
-  tags = {
-    Name = "WordPressDemo"
+  tags = merge(var.tags, {
+    Name = "${var.tags["Name"]}-ec2"
+  })
+
+  root_block_device {
+    volume_size = 20
+    volume_type = "gp2"
+    tags = var.tags
   }
+}
+
+output "public_ip" {
+  value = aws_instance.this.public_ip
+}
+
+output "private_ip" {
+  value = aws_instance.this.private_ip
+}
+
+output "instance_id" {
+  value = aws_instance.this.id
 } 
