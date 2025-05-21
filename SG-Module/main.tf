@@ -44,12 +44,4 @@ resource "aws_security_group" "rds" {
   tags = merge(var.tags, {
     Name = "${var.tags["Name"]}-rds-sg"
   })
-}
-
-output "ec2_sg_id" {
-  value = aws_security_group.ec2.id
-}
-
-output "rds_sg_id" {
-  value = aws_security_group.rds.id
 } 

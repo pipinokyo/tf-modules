@@ -19,16 +19,4 @@ resource "aws_db_instance" "this" {
   tags = merge(var.tags, {
     Name = "${var.tags["Name"]}-rds"
   })
-}
-
-output "endpoint" {
-  value = aws_db_instance.this.endpoint
-}
-
-output "port" {
-  value = aws_db_instance.this.port
-}
-
-output "db_name" {
-  value = aws_db_instance.this.db_name
 } 
