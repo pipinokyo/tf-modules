@@ -1,31 +1,24 @@
 resource "aws_instance" "this" {
   ami                    = var.ami_id
   instance_type          = var.instance_type
-  key_name              = var.key_name
+  key_name               = var.key_name
   vpc_security_group_ids = var.security_group_ids
 
   user_data = <<-EOF
     #!/bin/bash
     yum update -y
-    amazon-linux-extras install -y php7.4
-    yum install -y httpd mariadb
-    systemctl enable httpd
+    yum install -y httpd php php-mysqlnd
     systemctl start httpd
-    cd /var/www/html
-    wget https://wordpress.org/latest.tar.gz
-    tar -xzf latest.tar.gz
-    cp -r wordpress/* .
-    chown -R apache:apache /var/www/html
-    systemctl restart httpd
+    systemctl enable httpd
   EOF
 
   tags = merge(var.tags, {
-    Name = "${var.tags["Name"]}-ec2"
+    Name = "${var.tags["Name"]}-${var.service_name}"
   })
 
   root_block_device {
-    volume_size = 20
+    volume_size = 8
     volume_type = "gp2"
-    tags = var.tags
+    tags        = var.tags
   }
 } 

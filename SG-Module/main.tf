@@ -1,5 +1,5 @@
 resource "aws_security_group" "ec2" {
-  name        = "${var.tags["Name"]}-ec2-sg"
+  name        = "${var.tags["Name"]}-${var.service_name}-ec2"
   description = "Security group for EC2 instance"
   vpc_id      = var.vpc_id
 
@@ -24,13 +24,16 @@ resource "aws_security_group" "ec2" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  tags = merge(var.tags, {
-    Name = "${var.tags["Name"]}-ec2-sg"
-  })
+  tags = merge(
+    var.tags,
+    {
+      Name = "${var.tags["Name"]}-${var.service_name}-ec2"
+    }
+  )
 }
 
 resource "aws_security_group" "rds" {
-  name        = "${var.tags["Name"]}-rds-sg"
+  name        = "${var.tags["Name"]}-${var.service_name}-rds"
   description = "Security group for RDS instance"
   vpc_id      = var.vpc_id
 
@@ -41,7 +44,10 @@ resource "aws_security_group" "rds" {
     security_groups = [aws_security_group.ec2.id]
   }
 
-  tags = merge(var.tags, {
-    Name = "${var.tags["Name"]}-rds-sg"
-  })
+  tags = merge(
+    var.tags,
+    {
+      Name = "${var.tags["Name"]}-${var.service_name}-rds"
+    }
+  )
 } 

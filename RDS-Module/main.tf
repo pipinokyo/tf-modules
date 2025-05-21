@@ -1,7 +1,7 @@
 resource "aws_db_instance" "this" {
-  identifier           = var.db_name
+  identifier           = "${var.tags["Name"]}-${var.service_name}"
   engine              = "mysql"
-  engine_version      = "8.0"
+  engine_version      = "5.7"
   instance_class      = var.instance_class
   allocated_storage   = 20
   storage_type        = "gp2"
@@ -17,6 +17,6 @@ resource "aws_db_instance" "this" {
   publicly_accessible    = true
   
   tags = merge(var.tags, {
-    Name = "${var.tags["Name"]}-rds"
+    Name = "${var.tags["Name"]}-${var.service_name}"
   })
 } 
