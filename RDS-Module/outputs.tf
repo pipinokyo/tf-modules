@@ -1,9 +1,9 @@
 output "endpoint" {
   description = "RDS endpoint"
-  value       = aws_db_instance.wordpress.endpoint
+  value       = aws_db_instance.this.endpoint
 }
 
 output "db_name" {
   description = "Database name"
-  value       = var.db_name
+  value       = aws_db_instance.this.db_name
 } 
